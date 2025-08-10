@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
@@ -36,7 +37,10 @@ func checkURL(url string, wg *sync.WaitGroup) {
 }
 
 func main() {
-	data, err := os.Open("urls.txt")
+	urls := flag.String("w", "urls.txt", "Setup wordlist to scan the websites is live or not")
+	flag.Parse()
+
+	data, err := os.Open(*urls)
 	check(err)
 	defer data.Close()
 
